@@ -1,0 +1,35 @@
+listAvailableTimes:
+  handler: src/main/functions/scheduling/listAvailableTimes.handler
+  events:
+    - httpApi:
+        path: /scheduling/{barbershopId}/{barberId}/available-times
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
+
+listSchedulingByAccount:
+  handler: src/main/functions/scheduling/listSchedulingByAccount.handler
+  events:
+    - httpApi:
+        path: /scheduling
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
+
+createScheduling:
+  handler: src/main/functions/scheduling/createScheduling.handler
+  events:
+    - httpApi:
+        path: /scheduling/{barbershopId}/{barberId}
+        method: POST
+        authorizer:
+          name: CognitoAuthorizer
+
+deleteScheduling:
+  handler: src/main/functions/scheduling/deleteScheduling.handler
+  events:
+    - httpApi:
+        path: /scheduling/{barberId}/{date}/{startTime}
+        method: DELETE
+        authorizer:
+          name: CognitoAuthorizer

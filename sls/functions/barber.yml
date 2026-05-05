@@ -1,0 +1,44 @@
+createBarber:
+  handler: src/main/functions/barber/createBarber.handler
+  events:
+    - httpApi:
+        path: /barber
+        method: POST
+        authorizer:
+          name: CognitoAuthorizer
+
+listBarberByBarbershop:
+  handler: src/main/functions/barber/listByBarbershop.handler
+  events:
+    - httpApi:
+        path: /barbershop/barbers/{barbershopId}
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
+
+getBarberById:
+  handler: src/main/functions/barber/getBarberById.handler
+  events:
+    - httpApi:
+        path: /barber/{barbershopId}/{barberId}
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
+
+updateBarber:
+  handler: src/main/functions/barber/updateBarber.handler
+  events:
+    - httpApi:
+        path: /barber/{barbershopId}/{barberId}
+        method: PUT
+        authorizer:
+          name: CognitoAuthorizer
+
+deleteBarber:
+  handler: src/main/functions/barber/deleteBarber.handler
+  events:
+    - httpApi:
+        path: /barber/{barbershopId}/{barberId}
+        method: DELETE
+        authorizer:
+          name: CognitoAuthorizer

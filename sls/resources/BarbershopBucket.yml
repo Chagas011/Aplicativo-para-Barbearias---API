@@ -1,0 +1,6 @@
+Resources:
+  BarbershopBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: ${self:service}-${self:provider.stage}-barbershop-bucket-${aws:accountId}
