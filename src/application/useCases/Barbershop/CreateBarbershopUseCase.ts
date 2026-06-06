@@ -1,5 +1,6 @@
 import { Barbershop } from "@/application/entites/BarberShop";
 import { BarbershopRepository } from "@/infra/database/dynamo/repositories/BarbershopRepository";
+import { SubscriptionRepository } from "@/infra/database/dynamo/repositories/SubscriptionRepository";
 import { BarbershopStorageGateway } from "@/infra/gateway/BarbershopStorageGateway";
 import { Injectable } from "@/kernel/decorators/Injectable";
 import { getExtension } from "@/shared/help/getExtension";
@@ -9,6 +10,7 @@ export class CreateBarberShopUseCase {
   constructor(
     private readonly barberShopRepository: BarbershopRepository,
     private readonly barberShopStorageGateway: BarbershopStorageGateway,
+    private readonly subscriptionRepository: SubscriptionRepository,
   ) {}
 
   async execute({
@@ -20,6 +22,22 @@ export class CreateBarberShopUseCase {
     socialMedia,
     file,
   }: CreateBarberShopUseCase.Input): Promise<CreateBarberShopUseCase.Output> {
+    const subscription =
+      await this.subscriptionRepository.findActiveByAccount(accountId);
+
+    if (!subscription) {
+      throw new Error("Not Found Subscription");
+    }
+
+    const barbershops =
+      await this.barberShopRepository.listAllByAccount(accountId);
+
+    const limit = subscription.plan.maxBarbershops;
+
+    if (barbershops.length >= limit) {
+      throw new Error("You have reached the barbershop limit for your plan");
+    }
+
     if (!file) {
       const barberShop = new Barbershop({
         name,

@@ -13,6 +13,11 @@ provider:
   iam:
     role: ${file(./sls/config/role.yml)}
   httpApi:
+    cors:
+      allowedOrigins:
+        - http://localhost:5173
+      allowedHeaders: "*"
+      allowedMethods: "*"
     authorizers:
       CognitoAuthorizer:
         type: jwt
@@ -38,6 +43,8 @@ functions:
   - ${file(./sls/functions/barbershop.yml)}
   - ${file(./sls/functions/service.yml)}
   - ${file(./sls/functions/scheduling.yml)}
+  - ${file(./sls/functions/plan.yml)}
+  - ${file(./sls/functions/subscription.yml)}
 
 resources:
   - ${file(./sls/resources/UserPool.yml)}

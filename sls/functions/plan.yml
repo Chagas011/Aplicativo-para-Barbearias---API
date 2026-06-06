@@ -1,0 +1,35 @@
+createPlan:
+  handler: src/main/functions/plan/createPlan.handler
+  events:
+    - httpApi:
+        path: /barbershop/{barbershopId}/plans
+        method: POST
+        authorizer:
+          name: CognitoAuthorizer
+
+listPlan:
+  handler: src/main/functions/plan/listPlan.handler
+  events:
+    - httpApi:
+        path: /barbershop/{barbershopId}/plans
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
+
+deletePlan:
+  handler: src/main/functions/plan/deletePlan.handler
+  events:
+    - httpApi:
+        path: /barbershop/{barbershopId}/plans/{planId}
+        method: DELETE
+        authorizer:
+          name: CognitoAuthorizer
+
+updatePlan:
+  handler: src/main/functions/plan/updatePlan.handler
+  events:
+    - httpApi:
+        path: /barbershop/{barbershopId}/plans/{planId}
+        method: PUT
+        authorizer:
+          name: CognitoAuthorizer

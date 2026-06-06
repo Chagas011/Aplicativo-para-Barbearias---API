@@ -1,0 +1,17 @@
+createSubscription:
+  handler: src/main/functions/subscription/createSubscription.handler
+  events:
+    - httpApi:
+        path: /subscription
+        method: POST
+        authorizer:
+          name: CognitoAuthorizer
+
+listSubscription:
+  handler: src/main/functions/subscription/listSubscription.handler
+  events:
+    - httpApi:
+        path: /subscription
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
