@@ -19,6 +19,7 @@ export class CreatePlanController extends Controller<
   }
   protected override async handle({
     body,
+    accountId,
     params,
   }: Controller.Request<
     "private",
@@ -28,6 +29,7 @@ export class CreatePlanController extends Controller<
     const { name, price, remaningServices, services } = body;
     const { plan } = await this.createPlanUseCase.execute({
       barbershopId: params.barbershopId,
+      accountId,
       name,
       price,
       remaningServices,

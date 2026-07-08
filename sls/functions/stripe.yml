@@ -1,0 +1,22 @@
+stripeWebhook:
+  handler: src/main/functions/stripe/stripeWebhook.handler
+  events:
+    - httpApi:
+        path: /subscription/webhook
+        method: POST
+
+stripeWebhookClient:
+  handler: src/main/functions/stripe/stripeWebhookClient.handler
+  events:
+    - httpApi:
+        path: /subscription/client/webhook
+        method: POST
+
+createStripeConnectAccount:
+  handler: src/main/functions/stripe/createStripeConnectAccount.handler
+  events:
+    - httpApi:
+        path: /stripe/connect/account
+        method: POST
+        authorizer:
+          name: CognitoAuthorizer

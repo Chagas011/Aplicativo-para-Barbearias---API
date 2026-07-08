@@ -43,6 +43,8 @@ export function lambdaHttpAdapter(
         body,
         params,
         queryParams,
+        headers: event.headers,
+        rawBody: event.body ?? "",
         accountId,
         role,
       });

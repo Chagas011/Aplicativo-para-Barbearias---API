@@ -5,6 +5,7 @@ export class Account {
   readonly name: string;
   externalId: string | undefined;
   readonly createdAt: Date;
+  stripeConnectAccountId?: string;
 
   constructor(attr: Account.Attributes) {
     this.id = attr.id ?? KSUID.randomSync().string;
@@ -12,6 +13,7 @@ export class Account {
     this.name = attr.name;
     this.externalId = attr.externalId;
     this.createdAt = attr.createdAt ?? new Date();
+    this.stripeConnectAccountId = attr.stripeConnectAccountId;
   }
 }
 
@@ -22,5 +24,6 @@ export namespace Account {
     externalId?: string;
     id?: string;
     createdAt?: Date;
+    stripeConnectAccountId?: string;
   };
 }

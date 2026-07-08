@@ -5,7 +5,7 @@ import { Injectable } from "@/kernel/decorators/Injectable";
 
 @Injectable()
 export class ListBarbershopController extends Controller<
-  "private",
+  "public",
   ListBarbershopController.Response
 > {
   constructor(private readonly listBarbershopUseCase: ListBarberShopUseCase) {

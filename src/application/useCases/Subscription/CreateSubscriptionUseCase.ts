@@ -1,6 +1,7 @@
 import { Subscription } from "@/application/entites/Subscription";
 import { SubscriptionRepository } from "@/infra/database/dynamo/repositories/SubscriptionRepository";
 import { Injectable } from "@/kernel/decorators/Injectable";
+import { StripePlans } from "@/shared/types/StripePlans";
 
 @Injectable()
 export class CreateSubscriptionUseCase {
@@ -10,42 +11,37 @@ export class CreateSubscriptionUseCase {
 
   async execute({
     accountId,
-    planName,
+    priceId,
+    stripeCustomerId,
+    stripeSubscriptionId,
   }: CreateSubscriptionUseCase.Input): Promise<CreateSubscriptionUseCase.Output> {
-    if (planName === "BASIC") {
-      const subscrption = new Subscription({
-        accountId,
-        plan: {
-          name: "BASIC",
-          price: 60,
-          maxBarbershops: 2,
-        },
-        status: "ACTIVE",
-      });
-
-      await this.subscriptionRepository.create(subscrption);
-    } else if (planName === "PREMIUM") {
-      const subscrption = new Subscription({
-        accountId,
-        plan: {
-          name: "PREMIUM",
-          price: 140,
-          maxBarbershops: 5,
-        },
-        status: "ACTIVE",
-      });
-
-      await this.subscriptionRepository.create(subscrption);
-    } else {
-      throw new Error("Invalid Plan");
+    const plan = StripePlans[priceId as keyof typeof StripePlans];
+    if (!plan) {
+      throw new Error("Invalid Stripe Price");
     }
+    const subscription = new Subscription({
+      accountId,
+      plan: {
+        name: plan.name,
+        price: plan.price,
+        maxBarbershops: plan.maxBarbershops,
+      },
+      status: "ACTIVE",
+      stripeCustomerId: stripeCustomerId,
+      stripePriceId: priceId,
+      stripeSubscriptionId: stripeSubscriptionId,
+    });
+
+    await this.subscriptionRepository.create(subscription);
   }
 }
 
 export namespace CreateSubscriptionUseCase {
   export type Input = {
     accountId: string;
-    planName: string;
+    priceId: string;
+    stripeCustomerId: string;
+    stripeSubscriptionId: string;
   };
 
   export type Output = void;

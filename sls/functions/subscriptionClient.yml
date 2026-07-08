@@ -1,0 +1,17 @@
+listClientSubscription:
+  handler: src/main/functions/subscriptionClient/listClientSubscription.handler
+  events:
+    - httpApi:
+        path: /subscription/client
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
+
+createClientCheckoutSession:
+  handler: src/main/functions/subscriptionClient/createClientCheckoutSession.handler
+  events:
+    - httpApi:
+        path: /client-subscription/checkout
+        method: POST
+        authorizer:
+          name: CognitoAuthorizer

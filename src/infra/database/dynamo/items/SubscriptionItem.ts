@@ -27,6 +27,9 @@ export class SubscriptionItem {
       createdAt: subscription.createdAt.toISOString(),
       plan: subscription.plan,
       status: subscription.status,
+      stripeCustomerId: subscription.stripeCustomerId,
+      stripePriceId: subscription.stripePriceId,
+      stripeSubscriptionId: subscription.stripeSubscriptionId,
     });
   }
 
@@ -37,6 +40,9 @@ export class SubscriptionItem {
       createdAt: new Date(subscriptionItem.createdAt),
       plan: subscriptionItem.plan,
       status: subscriptionItem.status,
+      stripeCustomerId: subscriptionItem.stripeCustomerId,
+      stripePriceId: subscriptionItem.stripePriceId,
+      stripeSubscriptionId: subscriptionItem.stripeSubscriptionId,
     });
   }
 
@@ -59,6 +65,9 @@ export namespace SubscriptionItem {
     id: string;
     accountId: string;
     createdAt: string;
+    stripeCustomerId: string;
+    stripeSubscriptionId: string;
+    stripePriceId: string;
     plan: {
       name: string;
       price: number;

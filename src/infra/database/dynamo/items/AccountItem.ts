@@ -32,6 +32,7 @@ export class AccountItem {
       email: accountItem.email,
       externalId: accountItem.externalId,
       createdAt: new Date(accountItem.createdAt),
+      stripeConnectAccountId: accountItem.stripeConnectAccountId,
       name: accountItem.name,
     });
   }
@@ -65,6 +66,7 @@ export namespace AccountItem {
     externalId: string | undefined;
     createdAt: string;
     name: string;
+    stripeConnectAccountId?: string;
   };
 
   export type ItemTypes = Keys &

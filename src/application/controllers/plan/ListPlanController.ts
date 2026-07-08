@@ -6,7 +6,7 @@ import { Injectable } from "@/kernel/decorators/Injectable";
 
 @Injectable()
 export class ListPlanController extends Controller<
-  "private",
+  "public",
   ListPlanController.Response
 > {
   constructor(
@@ -17,7 +17,7 @@ export class ListPlanController extends Controller<
   protected override async handle({
     params,
   }: Controller.Request<
-    "private",
+    "public",
     Record<string, unknown>,
     ListPlanController.Params
   >): Promise<Controller.Response<ListPlanController.Response>> {

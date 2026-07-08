@@ -56,6 +56,8 @@ export namespace Controller {
     params: TParams;
     queryParams: TQueryParams;
     role: TRole;
+    rawBody?: string;
+    headers: Record<string, string | undefined>;
   };
 
   type PublicRequest<

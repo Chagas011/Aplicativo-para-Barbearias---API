@@ -16,6 +16,7 @@ provider:
     cors:
       allowedOrigins:
         - http://localhost:5173
+        - https://d1kedj493fgm56.cloudfront.net
       allowedHeaders: "*"
       allowedMethods: "*"
     authorizers:
@@ -45,6 +46,8 @@ functions:
   - ${file(./sls/functions/scheduling.yml)}
   - ${file(./sls/functions/plan.yml)}
   - ${file(./sls/functions/subscription.yml)}
+  - ${file(./sls/functions/subscriptionClient.yml)}
+  - ${file(./sls/functions/stripe.yml)}
 
 resources:
   - ${file(./sls/resources/UserPool.yml)}

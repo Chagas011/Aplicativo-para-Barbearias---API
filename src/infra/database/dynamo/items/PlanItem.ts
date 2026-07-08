@@ -23,11 +23,14 @@ export class PlanItem {
   static fromEntity(plan: Plan) {
     return new PlanItem({
       id: plan.id,
+      accountId: plan.accountId,
       barbershopId: plan.barbershopId,
       createdAt: plan.createdAt.toISOString(),
       name: plan.name,
       price: plan.price,
       remaningServices: plan.remaningServices,
+      stripePriceId: plan.stripePriceId,
+      stripeProductId: plan.stripeProductId,
       services: plan.services,
     });
   }
@@ -35,10 +38,13 @@ export class PlanItem {
   static toEntity(PlanItem: PlanItem.ItemTypes) {
     return new Plan({
       id: PlanItem.id,
+      accountId: PlanItem.accountId,
       barbershopId: PlanItem.barbershopId,
       name: PlanItem.name,
       price: PlanItem.price,
       remaningServices: PlanItem.remaningServices,
+      stripePriceId: PlanItem.stripePriceId,
+      stripeProductId: PlanItem.stripeProductId,
       services: PlanItem.services,
       createdAt: new Date(PlanItem.createdAt),
     });
@@ -61,11 +67,14 @@ export namespace PlanItem {
 
   export type Attributes = {
     id: string;
+    accountId: string;
     barbershopId: string;
     createdAt: string;
     name: string;
     price: number;
     remaningServices: number;
+    stripeProductId?: string;
+    stripePriceId?: string;
     services: string[];
   };
 

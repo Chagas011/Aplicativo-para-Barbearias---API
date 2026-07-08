@@ -7,15 +7,6 @@ createBarbershop:
         authorizer:
           name: CognitoAuthorizer
 
-listBarbershop:
-  handler: src/main/functions/barbershop/listBarbershop.handler
-  events:
-    - httpApi:
-        path: /barbershop
-        method: GET
-        authorizer:
-          name: CognitoAuthorizer
-
 listBarbershopByAccount:
   handler: src/main/functions/barbershop/listBarbershopByAccount.handler
   events:
@@ -51,3 +42,10 @@ deleteBarbershop:
         method: DELETE
         authorizer:
           name: CognitoAuthorizer
+
+listBarbershop:
+  handler: src/main/functions/barbershop/listBarbershop.handler
+  events:
+    - httpApi:
+        path: /barbershop
+        method: GET

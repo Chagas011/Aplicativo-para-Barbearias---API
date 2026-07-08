@@ -7,6 +7,7 @@ export class AppConfig {
   readonly db: AppConfig.Database;
   readonly storage: AppConfig.Storage;
   readonly cdn: AppConfig.CDN;
+  readonly stripe: AppConfig.Stripe;
   constructor() {
     this.auth = {
       cognito: {
@@ -27,6 +28,12 @@ export class AppConfig {
     };
     this.cdn = {
       barbershopCDN: env.BARBERSHOP_CDN_DOMAIN_NAME,
+    };
+
+    this.stripe = {
+      stripeSecretKey: env.STRIPE_SECRET_KEY,
+      webhookSecret: env.WEBHOOK_SECRET,
+      webhookClientSecret: env.WEBHOOK_CLIENT_SECRET,
     };
   }
 }
@@ -52,5 +59,11 @@ export namespace AppConfig {
 
   export type CDN = {
     barbershopCDN: string;
+  };
+
+  export type Stripe = {
+    stripeSecretKey: string;
+    webhookSecret: string;
+    webhookClientSecret: string;
   };
 }

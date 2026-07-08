@@ -13,8 +13,6 @@ listPlan:
     - httpApi:
         path: /barbershop/{barbershopId}/plans
         method: GET
-        authorizer:
-          name: CognitoAuthorizer
 
 deletePlan:
   handler: src/main/functions/plan/deletePlan.handler

@@ -7,6 +7,9 @@ const schema = z.object({
   MAIN_TABLE_NAME: z.string().min(1),
   BARBERSHOP_BUCKET: z.string().min(1),
   BARBERSHOP_CDN_DOMAIN_NAME: z.string().min(1),
+  STRIPE_SECRET_KEY: z.string().min(1),
+  WEBHOOK_SECRET: z.string().min(1),
+  WEBHOOK_CLIENT_SECRET: z.string().min(1),
 });
 
 export const env = schema.parse(process.env);

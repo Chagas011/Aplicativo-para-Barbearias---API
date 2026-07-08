@@ -29,6 +29,7 @@ export class CreateBarbershopController extends Controller<
     Controller.Response<CreateBarbershopController.Response>
   > {
     const { name, address, openingHours, phone, file, socialMedia } = body;
+
     const { barberShop, fileKey, uploadSignature } =
       await this.createBarbershopUseCase.execute({
         accountId,

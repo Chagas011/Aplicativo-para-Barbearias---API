@@ -4,12 +4,9 @@ import { Subscription } from "@/application/entites/Subscription";
 import { ListSubscriptionByAccountUseCase } from "@/application/useCases/Subscription/ListSubscriptionByAccountUseCase";
 import { Injectable } from "@/kernel/decorators/Injectable";
 import { Roles } from "@/kernel/decorators/Role";
-import { Schema } from "@/kernel/decorators/Schema";
-import { createSubscriptionSchema } from "./schema/createSubscriptionSchema";
 
 @Injectable()
 @Roles("admin")
-@Schema(createSubscriptionSchema)
 export class ListSubscriptionController extends Controller<
   "private",
   ListSubscriptionController.Response
