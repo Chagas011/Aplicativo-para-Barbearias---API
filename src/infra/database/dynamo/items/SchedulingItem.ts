@@ -81,7 +81,7 @@ export namespace SchedulingItem {
     date: string;
     startTime: string;
     endTime: string;
-
+    customer: Customer;
     status?: Status;
 
     createdAt: string;
@@ -106,7 +106,10 @@ export namespace SchedulingItem {
     address: Address;
     photoURL?: string | null;
   };
-
+  export type Customer = {
+    id: string;
+    name: string;
+  };
   export type Address = {
     street: string;
     number: string;

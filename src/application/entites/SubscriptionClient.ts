@@ -46,5 +46,6 @@ export namespace SubscriptionClient {
     name: string;
     price: number;
     remaningServices: number;
+    services: string[];
   };
 }

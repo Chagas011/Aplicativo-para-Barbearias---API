@@ -11,16 +11,21 @@ export class SchedulingRepository {
 
   async listByBarberAndDate(
     barberId: string,
-    date: string,
+    date?: string,
   ): Promise<Scheduling[]> {
+    const sk = date ? `SCHEDULING#${date}` : "SCHEDULING#";
+
     const result = await dynamoClient.send(
       new QueryCommand({
         TableName: this.appConfig.db.dynamodb.mainTable,
-        KeyConditionExpression: "PK = :pk AND begins_with(SK, :date)",
+
+        KeyConditionExpression: "PK = :pk AND begins_with(SK, :sk)",
+
         ExpressionAttributeValues: {
           ":pk": SchedulingItem.getPK(barberId),
-          ":date": `SCHEDULING#${date}`,
+          ":sk": sk,
         },
+
         ScanIndexForward: true,
       }),
     );

@@ -92,14 +92,17 @@ export class SubscriptionClientRepository {
           PK: item.PK,
           SK: item.SK,
         },
-        UpdateExpression: "SET #plan = :plan, #status = :status",
+        UpdateExpression:
+          "SET #plan = :plan, #status = :status, #remaningServices = :remaningServices",
         ExpressionAttributeNames: {
           "#plan": "plan",
           "#status": "status",
+          "#remaningServices": "remaningServices",
         },
         ExpressionAttributeValues: {
           ":plan": item.plan,
           ":status": item.status,
+          ":remaningServices": item.plan.remaningServices,
         },
       }),
     );

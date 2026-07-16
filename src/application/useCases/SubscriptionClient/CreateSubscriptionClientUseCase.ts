@@ -36,6 +36,7 @@ export class CreateSubscriptionClientUseCase {
         name: plan.name,
         price: plan.price,
         remaningServices: plan.remaningServices,
+        services: plan.services,
       },
       status: "ACTIVE",
       stripeCustomerId,

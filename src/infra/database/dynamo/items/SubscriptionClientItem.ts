@@ -84,6 +84,7 @@ export namespace SubscriptionClientItem {
     name: string;
     price: number;
     remaningServices: number;
+    services: string[];
   };
   export type ItemTypes = Keys &
     Attributes & {

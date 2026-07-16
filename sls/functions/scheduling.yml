@@ -7,6 +7,15 @@ listAvailableTimes:
         authorizer:
           name: CognitoAuthorizer
 
+listSchedulingByBarber:
+  handler: src/main/functions/scheduling/listSchedulingByBarber.handler
+  events:
+    - httpApi:
+        path: /scheduling/{barberId}
+        method: GET
+        authorizer:
+          name: CognitoAuthorizer
+
 listSchedulingByAccount:
   handler: src/main/functions/scheduling/listSchedulingByAccount.handler
   events:

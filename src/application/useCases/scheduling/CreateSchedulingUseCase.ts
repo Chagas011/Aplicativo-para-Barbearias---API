@@ -1,8 +1,10 @@
 import { Scheduling } from "@/application/entites/Scheduling";
+import { AccountRepository } from "@/infra/database/dynamo/repositories/AccountRepository";
 import { BarberRepository } from "@/infra/database/dynamo/repositories/BarberRepository";
 import { BarbershopRepository } from "@/infra/database/dynamo/repositories/BarbershopRepository";
 import { SchedulingRepository } from "@/infra/database/dynamo/repositories/SchedulingRepository";
 import { ServiceRepository } from "@/infra/database/dynamo/repositories/ServiceRepository";
+import { SubscriptionClientRepository } from "@/infra/database/dynamo/repositories/SubscriptionClientRepository";
 import { Injectable } from "@/kernel/decorators/Injectable";
 @Injectable()
 export class CreateSchedulingUseCase {
@@ -11,6 +13,8 @@ export class CreateSchedulingUseCase {
     private readonly serviceRepository: ServiceRepository,
     private readonly barberRepository: BarberRepository,
     private readonly barbershopRepository: BarbershopRepository,
+    private readonly subscriptionClientRepository: SubscriptionClientRepository,
+    private readonly accountRepository: AccountRepository,
   ) {}
 
   async execute({
@@ -26,7 +30,11 @@ export class CreateSchedulingUseCase {
     if (!service) {
       throw new Error("Service not found");
     }
+    const account = await this.accountRepository.findById(accountId);
 
+    if (!account) {
+      throw new Error("Account not found");
+    }
     const barber = await this.barberRepository.findById(barbershopId, barberId);
 
     if (!barber) {
@@ -36,6 +44,22 @@ export class CreateSchedulingUseCase {
     const barbershop = await this.barbershopRepository.findById(barbershopId);
     if (!barbershop) {
       throw new Error("Barbershop not found");
+    }
+
+    const subscriptionClient =
+      await this.subscriptionClientRepository.findActiveByAccount(accountId);
+    let status: CreateSchedulingUseCase.Status = "SCHEDULED";
+
+    if (
+      subscriptionClient &&
+      subscriptionClient.barbershopId === barbershopId &&
+      subscriptionClient.plan.services.includes(service.name) &&
+      subscriptionClient.plan.remaningServices > 0
+    ) {
+      status = "COMPLETED";
+      subscriptionClient.plan.remaningServices--;
+
+      await this.subscriptionClientRepository.save(subscriptionClient);
     }
 
     const [year, month, day] = date.split("-").map(Number);
@@ -91,10 +115,14 @@ export class CreateSchedulingUseCase {
         name: service.name,
         price: service.price,
       },
+      customer: {
+        id: account.id,
+        name: account.name,
+      },
       date,
       startTime,
       endTime,
-      status: "SCHEDULED",
+      status,
     });
 
     try {
@@ -121,7 +149,6 @@ export namespace CreateSchedulingUseCase {
     barbershopId: string;
     date: string;
     startTime: string;
-    status?: Status;
   };
 
   export type Output = {

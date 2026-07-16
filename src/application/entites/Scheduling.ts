@@ -9,6 +9,7 @@ export class Scheduling {
   readonly startTime: string;
   readonly endTime: string;
   readonly barbershop: Scheduling.Barbershop;
+  readonly customer: Scheduling.Customer;
   status: Scheduling.Status;
 
   readonly createdAt: Date;
@@ -22,6 +23,7 @@ export class Scheduling {
     this.startTime = attr.startTime;
     this.endTime = attr.endTime;
     this.barbershop = attr.barbershop;
+    this.customer = attr.customer;
     this.status = attr.status ?? "SCHEDULED";
 
     this.createdAt = attr.createdAt ?? new Date();
@@ -41,6 +43,7 @@ export namespace Scheduling {
 
     barber: Barber;
     barbershop: Barbershop;
+    customer: Customer;
     service: Service;
     accountId: string;
     date: string;
@@ -78,5 +81,10 @@ export namespace Scheduling {
     city: string;
     state: string;
     zipCode: string;
+  };
+
+  export type Customer = {
+    id: string;
+    name: string;
   };
 }

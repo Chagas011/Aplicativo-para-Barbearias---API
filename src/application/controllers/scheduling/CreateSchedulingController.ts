@@ -28,14 +28,13 @@ export class CreateSchedulingController extends Controller<
     CreateSchedulingBody,
     CreateSchedulingController.Params
   >): Promise<Controller.Response<CreateSchedulingController.Response>> {
-    const { date, serviceId, startTime, status } = body;
+    const { date, serviceId, startTime } = body;
     const { schedulingId } = await this.createSchedulingUseCase.execute({
       barberId: params.barberId,
       barbershopId: params.barbershopId,
       date,
       serviceId,
       startTime,
-      status,
       accountId,
     });
     return {
